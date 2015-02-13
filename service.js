@@ -1,30 +1,40 @@
 var app = angular.module('userProfiles'); //wow
 
-app.service('mainService', function($http) {
+app.service('mainService', function($http, $q) {//q is 'promises', promises are like callback functions
 
-	var data = [
-    {
-        "id": 1,
-        "first_name": "george",
-        "last_name": "bluth",
-        "avatar": "https://s3.amazonaws.com/uifaces/faces/twitter/calebogden/128.jpg"
-    },
-    {
-        "id": 2,
-        "first_name": "lucille",
-        "last_name": "bluth",
-        "avatar": "https://s3.amazonaws.com/uifaces/faces/twitter/josephstein/128.jpg"
-    },
-    {
-        "id": 3,
-        "first_name": "oscar",
-        "last_name": "bluth",
-        "avatar": "https://s3.amazonaws.com/uifaces/faces/twitter/olegpogodaev/128.jpg"
-    }
-  ];
+    this.getUsers = function() {
+        //how promises work
+        /*var deferred = $q.defer();
 
-  this.getUsers = function() {
-    return data;
+        $http({
+            method: 'GET',
+            url: 'http://reqr.es/api/users?page=1'
+        }).then(function(response) {
+            deferred.resolve(response.data.data);
+        }, function(err) {
+            deferred.reject(err);
+        });
+
+        return deferred.promise;*/
+
+        //original function
+        return $http({
+            method: 'GET',
+            url: 'http://reqr.es/api/users?page=1'
+        });
+        //POST syntax checks data THEN posts it, like USPS waits to verify stamp is paid, then mails package
+        /*
+        return $http({
+            method: 'POST',
+            url: 'http://reqr.es/api/users?page=1'
+            data: {
+                name: "chris",
+                job: {
+                    name: "lkdafsa"
+                }
+            }
+        })
+        */
   };
 
 
